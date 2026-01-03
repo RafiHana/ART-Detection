@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Detection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="logo">
+                    <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                        <rect width="60" height="60" rx="12" fill="#2563eb"/>
+                        <path d="M20 35L25 25L35 40L40 30L50 45" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="30" cy="20" r="3" fill="white"/>
+                    </svg>
+                </div>
+                <h1 class="title">Art Detection</h1>
+                <p class="subtitle">AI-Powered Painting Detection System</p>
+                <p class="description">
+                    Advanced deep learning and computer vision technology to distinguish between authentic paintings and AI-generated artwork. 
+                    Upload your painting image and receive instant analysis with high accuracy.
+                </p>
+                <a href="#upload" class="cta-button">Start Detection</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Use Section -->
+    <section class="why-use">
+        <div class="container">
+            <h2 class="section-title">Why Use This Website?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </div>
+                    <h3>Fast & Accurate Detection</h3>
+                    <p>Get analysis results in seconds with high accuracy using EfficientNet-B0 model</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <path d="M21 15l-5-5L5 21"/>
+                        </svg>
+                    </div>
+                    <h3>Deep Analysis</h3>
+                    <p>Visual feature extraction and FFT analysis to detect hidden patterns in images</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                            <path d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20z"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <h3>Easy to Use</h3>
+                    <p>Simple and intuitive interface, just upload your image and get the results</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h3>Safe & Private</h3>
+                    <p>Your images are processed securely and not stored on our servers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section class="technology">
+        <div class="container">
+            <h2 class="section-title">Technology</h2>
+            <div class="tech-content">
+                <div class="tech-stack">
+                    <div class="tech-item">
+                        <div class="tech-badge">Deep Learning</div>
+                        <p>EfficientNet-B0</p>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-badge">Feature Extraction</div>
+                        <p>Fast Fourier Transform (FFT)</p>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-badge">Backend</div>
+                        <p>FastAPI</p>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-badge">Hosting</div>
+                        <p>Hugging Face Spaces</p>
+                    </div>
+                </div>
+                <div class="tech-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">%</div>
+                        <div class="stat-label">Model Accuracy</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">22K+</div>
+                        <div class="stat-label">Training Dataset</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">&lt;2s</div>
+                        <div class="stat-label">Detection Time</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section class="upload-section" id="upload">
+        <div class="container">
+            <h2 class="section-title">Detect Your Painting</h2>
+            <p class="upload-subtitle">Upload a painting image to identify whether it's an authentic artwork or AI-generated</p>
+            
+            <div class="upload-container">
+                <div class="upload-area" id="uploadArea">
+                    <input type="file" id="fileInput" accept="image/*" hidden>
+                    <div class="upload-content" id="uploadContent">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                        <h3>Drag & Drop or Click to Upload</h3>
+                        <p>Supported formats: JPG, PNG, JPEG (Max 10MB)</p>
+                        <button class="upload-button" id="uploadButton">Choose Image</button>
+                    </div>
+                    <div class="preview-container" id="previewContainer" style="display: none;">
+                        <img id="previewImage" src="" alt="Preview">
+                        <button class="remove-button" id="removeButton">✕</button>
+                    </div>
+                </div>
+
+                <button class="analyze-button" id="analyzeButton" style="display: none;">
+                    <span id="analyzeText">Analyze Image</span>
+                    <span id="loadingSpinner" class="spinner" style="display: none;"></span>
+                </button>
+
+                <div class="result-container" id="resultContainer" style="display: none;">
+                    <div class="result-content">
+                        <div class="result-icon" id="resultIcon"></div>
+                        <h3 id="resultTitle"></h3>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" id="confidenceFill"></div>
+                        </div>
+                        <p class="confidence-text" id="confidenceText"></p>
+                        <p class="result-description" id="resultDescription"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Art Detection. Powered by Deep Learning & Computer Vision.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
