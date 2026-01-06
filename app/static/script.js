@@ -17,6 +17,10 @@ const resultDescription = document.getElementById('resultDescription');
 
 let selectedFile = null;
 
+// API Configuration
+const API_BASE_URL = window.location.origin;
+const PREDICT_ENDPOINT = `${API_BASE_URL}/predict`;
+
 uploadButton.addEventListener('click', () => fileInput.click());
 uploadArea.addEventListener('click', (e) => {
     if (e.target === uploadArea || e.target.closest('#uploadContent')) {
@@ -47,7 +51,6 @@ uploadArea.addEventListener('drop', (e) => {
     }
 });
 
-// Handle File Selection
 function handleFileSelect(e) {
     const file = e.target.files[0];
     if (file) {
@@ -56,14 +59,12 @@ function handleFileSelect(e) {
 }
 
 function handleFile(file) {
-    // Validate file type
     const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
     if (!validTypes.includes(file.type)) {
         alert('File format not supported. Please use JPG, JPEG, or PNG.');
         return;
     }
 
-    // Validate file size (10MB)
     const maxSize = 10 * 1024 * 1024;
     if (file.size > maxSize) {
         alert('File size too large. Maximum 10MB.');
@@ -98,43 +99,35 @@ function resetUpload() {
     resultContainer.style.display = 'none';
 }
 
-// Analyze Image Function
 async function analyzeImage() {
     if (!selectedFile) return;
 
-    // Show loading state
     analyzeButton.disabled = true;
     analyzeText.textContent = 'Analyzing...';
     loadingSpinner.style.display = 'block';
     resultContainer.style.display = 'none';
 
     try {
-        // Prepare FormData
         const formData = new FormData();
         formData.append('file', selectedFile);
 
-        // TODO: Replace with your actual API endpoint
-        // const response = await fetch('YOUR_API_ENDPOINT/predict', {
-        //     method: 'POST',
-        //     body: formData
-        // });
+        const response = await fetch(PREDICT_ENDPOINT, {
+            method: 'POST',
+            body: formData
+        });
 
-        // Simulate API call for demo purposes
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.detail || 'Prediction failed');
+        }
 
-        // Simulate response (replace with actual API response)
-        const mockResponse = {
-            prediction: Math.random() > 0.5 ? 'real' : 'ai',
-            confidence: (Math.random() * 0.3 + 0.7).toFixed(2)
-        };
-
-        displayResult(mockResponse);
+        const data = await response.json();
+        displayResult(data);
 
     } catch (error) {
         console.error('Error:', error);
-        alert('An error occurred while analyzing the image. Please try again.');
+        alert(`An error occurred: ${error.message}. Please try again.`);
     } finally {
-        // Reset button state
         analyzeButton.disabled = false;
         analyzeText.textContent = 'Analyze Image';
         loadingSpinner.style.display = 'none';
@@ -142,10 +135,9 @@ async function analyzeImage() {
 }
 
 function displayResult(data) {
-    const { prediction, confidence } = data;
+    const { prediction, confidence, probabilities } = data;
     const confidencePercent = (parseFloat(confidence) * 100).toFixed(1);
 
-    // Update result icon and title
     if (prediction === 'real') {
         resultIcon.className = 'result-icon real';
         resultIcon.innerHTML = '✓';
@@ -158,20 +150,23 @@ function displayResult(data) {
         resultDescription.textContent = 'This image is detected as AI-generated artwork. The model recognizes patterns and characteristics commonly found in images produced by artificial intelligence.';
     }
 
-    // Update confidence bar
     confidenceFill.style.width = `${confidencePercent}%`;
     confidenceText.textContent = `Confidence Level: ${confidencePercent}%`;
 
-    // Show result container with animation
+    // Add probability details
+    if (probabilities) {
+        const realProb = (probabilities.real * 100).toFixed(1);
+        const aiProb = (probabilities.ai * 100).toFixed(1);
+        resultDescription.textContent += ` (Real: ${realProb}%, AI: ${aiProb}%)`;
+    }
+
     resultContainer.style.display = 'block';
     
-    // Scroll to result
     setTimeout(() => {
         resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 100);
 }
 
-// Smooth scroll for navigation
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -199,7 +194,6 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe all sections
 document.querySelectorAll('.why-use, .technology, .upload-section').forEach(section => {
     section.style.opacity = '0';
     section.style.transform = 'translateY(30px)';
