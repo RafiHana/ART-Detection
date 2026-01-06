@@ -17,10 +17,7 @@ class ModelLoader:
         model_dir = current_dir.parent / "models"
         
         possible_names = [
-            "efficientnet_b0_fft_model.h5",
-            "model.h5",
-            "best_model.h5",
-            "efficientnet_model.h5"
+            "finalModel.pth"
         ]
         
         for name in possible_names:
