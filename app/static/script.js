@@ -1,4 +1,3 @@
-// DOM Elements
 const uploadArea = document.getElementById('uploadArea');
 const fileInput = document.getElementById('fileInput');
 const uploadButton = document.getElementById('uploadButton');
@@ -18,7 +17,6 @@ const resultDescription = document.getElementById('resultDescription');
 
 let selectedFile = null;
 
-// Event Listeners
 uploadButton.addEventListener('click', () => fileInput.click());
 uploadArea.addEventListener('click', (e) => {
     if (e.target === uploadArea || e.target.closest('#uploadContent')) {
@@ -30,7 +28,6 @@ fileInput.addEventListener('change', handleFileSelect);
 removeButton.addEventListener('click', resetUpload);
 analyzeButton.addEventListener('click', analyzeImage);
 
-// Drag and Drop Events
 uploadArea.addEventListener('dragover', (e) => {
     e.preventDefault();
     uploadArea.classList.add('dragover');
@@ -188,7 +185,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Add scroll animation for sections
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
