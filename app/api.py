@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 
 BASE_URL = "http://localhost:7860"
-TEST_IMAGE_PATH = "path/to/your/test_image.jpg" 
+TEST_IMAGE_PATH = "/Artificial Intelligence/imageDetection/Dataset/train/ai/imgAI602.jpg" 
 
 def test_health_check():
     print("\n" + "="*50)
