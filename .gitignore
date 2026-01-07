@@ -34,19 +34,6 @@ ENV/
 *~
 .DS_Store
 
-# Jupyter Notebook
-.ipynb_checkpoints
-*.ipynb
-
-# Model files (if too large for git)
-*.h5
-*.hdf5
-*.pb
-*.ckpt
-*.pth
-*.pt
-saved_model/
-
 # Logs
 *.log
 logs/
