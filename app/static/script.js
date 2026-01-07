@@ -21,8 +21,20 @@ let selectedFile = null;
 const API_BASE_URL = window.location.origin;
 const PREDICT_ENDPOINT = `${API_BASE_URL}/predict`;
 
-uploadButton.addEventListener('click', () => fileInput.click());
+// uploadButton.addEventListener('click', () => fileInput.click());
+// uploadArea.addEventListener('click', (e) => {
+//     if (e.target === uploadArea || e.target.closest('#uploadContent')) {
+//         fileInput.click();
+//     }
+// });
+
+uploadButton.addEventListener('click', (e) => {
+    e.stopPropagation(); 
+    fileInput.click();
+});
+
 uploadArea.addEventListener('click', (e) => {
+    if (e.target === uploadButton) return; 
     if (e.target === uploadArea || e.target.closest('#uploadContent')) {
         fileInput.click();
     }

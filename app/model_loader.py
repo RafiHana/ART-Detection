@@ -1,9 +1,8 @@
 import torch
 import torch.nn as nn
-from torchvision import models, transforms
+from torchvision import models
 from pathlib import Path
 import logging
-from PIL import Image
 
 logger = logging.getLogger(__name__)
 
@@ -12,10 +11,12 @@ class ModelLoader:
         self.model = None
         self.is_loaded = False
         self.model_path = self._get_model_path()
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-        if torch.backends.mps.is_available():
-             self.device = torch.device("mps")
+        
+        self.device = torch.device("cpu") 
+        if torch.cuda.is_available():
+            self.device = torch.device("cuda")
+        elif torch.backends.mps.is_available():
+            self.device = torch.device("mps")
         
         self.class_names = ['ai', 'real'] 
         
@@ -23,21 +24,21 @@ class ModelLoader:
         current_dir = Path(__file__).parent
         model_dir = current_dir.parent / "models"
         
-        possible_names = ["finalModel.pth", "bestModel.pth"]
+        possible_names = ["bestModel.pth", "finalModel.pth"]
         
         for name in possible_names:
             model_path = model_dir / name
             if model_path.exists():
                 return model_path
         
-        return model_dir / possible_names[0]
+        return model_dir / "bestModel.pth"
     
     def load_model(self):
         try:
             if not self.model_path.exists():
                 raise FileNotFoundError(f"Model not found at {self.model_path}")
             
-            logger.info(f"Loading PyTorch model from: {self.model_path}")
+            logger.info(f"Loading model from: {self.model_path}")
             
             self.model = models.efficientnet_b0(weights=None) 
             
@@ -47,14 +48,14 @@ class ModelLoader:
                 nn.Linear(num_ftrs, 2)
             )
             
-            state_dict = torch.load(self.model_path, map_location=self.device)
+            state_dict = torch.load(self.model_path, map_location='cpu')
             self.model.load_state_dict(state_dict)
             
             self.model.to(self.device)
             self.model.eval()
             
             self.is_loaded = True
-            logger.info("Model loaded successfully on device: " + str(self.device))
+            logger.info(f"Model loaded successfully on device: {self.device}")
             
         except Exception as e:
             logger.error(f"Error loading model: {str(e)}")
@@ -70,13 +71,15 @@ class ModelLoader:
             
             with torch.no_grad(): 
                 outputs = self.model(image_tensor)
-                probabilities = torch.nn.functional.softmax(outputs, dim=1)
                 
+                probabilities = torch.nn.functional.softmax(outputs, dim=1)
                 probs_list = probabilities[0].tolist() 
                 
                 ai_prob = probs_list[0]   
                 real_prob = probs_list[1] 
                 
+                logger.info(f"RAW PREDICTION: [AI: {ai_prob:.4f}, REAL: {real_prob:.4f}]")
+
                 if real_prob > ai_prob:
                     prediction_class = 'real'
                     confidence = real_prob
