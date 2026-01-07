@@ -24,14 +24,14 @@ class ModelLoader:
         current_dir = Path(__file__).parent
         model_dir = current_dir.parent / "models"
         
-        possible_names = ["bestModel.pth"]
+        possible_names = ["best_model_efficientnet_fft.pth"]
         
         for name in possible_names:
             model_path = model_dir / name
             if model_path.exists():
                 return model_path
         
-        return model_dir / "bestModel.pth"
+        return model_dir / "best_model_efficientnet_fft.pth"
     
     def load_model(self):
         try:
