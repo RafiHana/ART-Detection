@@ -105,11 +105,9 @@ Below are screenshots of the website interface:
 
 | ![Web UI 1](images/1.png) | ![Web UI 2](images/2.png) |
 |:------------------------:|:------------------------:|
-| *Landing/analysis page*   | *Detection result page*   |
 
 | ![Web UI 3](images/3.png) | ![Web UI 4](images/4.png) |
 |:------------------------:|:------------------------:|
-| *Upload feature*          | *About or profile page*   |
 
 ### Detection Result Example
 
