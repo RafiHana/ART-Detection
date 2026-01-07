@@ -24,7 +24,7 @@ class ModelLoader:
         current_dir = Path(__file__).parent
         model_dir = current_dir.parent / "models"
         
-        possible_names = ["bestModel.pth", "finalModel.pth"]
+        possible_names = ["bestModel.pth"]
         
         for name in possible_names:
             model_path = model_dir / name

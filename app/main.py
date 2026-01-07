@@ -62,10 +62,7 @@ async def predict(file: UploadFile = File(...)):
         if not is_valid:
             raise HTTPException(status_code=400, detail=error_msg)
         
-        # Proses (Resize -> FFT -> Tensor)
         processed_tensor = process_image(image_bytes)
-        
-        # Prediksi
         prediction, confidence, probs = model_loader.predict(processed_tensor)
         
         return JSONResponse({
