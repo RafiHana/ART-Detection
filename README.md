@@ -1,4 +1,4 @@
-# Art Detection API
+# Art Detection
 
 This project is an image classification API that leverages EfficientNet-B0 combined with FFT (Fast Fourier Transform) preprocessing, built using FastAPI and PyTorch. It is designed to differentiate between AI-generated and real artworks.
 
